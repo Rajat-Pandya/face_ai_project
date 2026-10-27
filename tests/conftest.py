@@ -22,7 +22,9 @@ except ImportError:
 
 try:
     import mediapipe  # noqa: F401
-except ImportError:
+    if not hasattr(mediapipe, "solutions"):
+        raise ImportError("mediapipe.solutions is not available")
+except (ImportError, AttributeError):
     _register_stub("mediapipe")
     _register_stub("mediapipe.solutions")
     _register_stub("mediapipe.solutions.hands")
