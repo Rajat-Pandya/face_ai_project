@@ -1,6 +1,7 @@
-# ?? Face AI System
+# 🎭 Face AI System
 
 <p align="center">
+  <a href="https://github.com/Rajat-Pandya/face_ai_project/actions/workflows/ci.yml"><img src="https://github.com/Rajat-Pandya/face_ai_project/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python" alt="Python">
   <img src="https://img.shields.io/badge/TensorFlow-2.x-orange?style=for-the-badge&logo=tensorflow" alt="TensorFlow">
   <img src="https://img.shields.io/badge/OpenCV-4.x-green?style=for-the-badge&logo=opencv" alt="OpenCV">
@@ -14,7 +15,7 @@
 
 ---
 
-## ?? Table of Contents
+## 📋 Table of Contents
 
 - [Features](#-features)
 - [Demo](#-demo)
@@ -33,72 +34,72 @@
 
 ---
 
-## ? Features
+## 🌟 Features
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| **Face Detection** | Real-time face detection using Haar Cascade classifier | ? |
-| **Mask Detection** | Binary classification: MASK / NO MASK with confidence score | ? |
-| **Emotion Recognition** | 7-class emotion detection (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral) | ? |
-| **Hand Gesture Recognition** | MediaPipe-based hand tracking with gesture recognition | ? |
-| **Object Detection** | YOLOv8-powered real-time object detection (80 COCO classes) | ? |
-| **Modern UI** | Enhanced real-time display with FPS counter and confidence percentages | ? |
-| **Error Handling** | Comprehensive error handling for webcam, models, and datasets | ? |
+| **Face Detection** | Real-time face detection using Haar Cascade classifier | ✅ |
+| **Mask Detection** | Binary classification: MASK / NO MASK with confidence score | ✅ |
+| **Emotion Recognition** | 7-class emotion detection (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral) | ✅ |
+| **Hand Gesture Recognition** | MediaPipe-based hand tracking with gesture recognition | ✅ |
+| **Object Detection** | YOLOv8-powered real-time object detection (80 COCO classes) | ✅ |
+| **Modern UI** | Enhanced real-time display with FPS counter and confidence percentages | ✅ |
+| **Error Handling** | Comprehensive error handling for webcam, models, and datasets | ✅ |
 
 ### Key Features
 
-- ?? **Real-time Processing**: Optimized for 15-30 FPS depending on mode
-- ?? **Modern Visualizations**: Corner-style bounding boxes with confidence display
-- ?? **Live Statistics**: FPS counter, face count, detection status
-- ?? **Frame Skipping**: Configurable frame skipping for performance optimization
-- ??? **Robust Error Handling**: Graceful degradation when models/camera unavailable
-- ??? **GUI Control Panel**: Tkinter-based interface for easy control
+- ⚡ **Real-time Processing**: Optimized for 15-30 FPS depending on mode
+- 🎨 **Modern Visualizations**: Corner-style bounding boxes with confidence display
+- 📊 **Live Statistics**: FPS counter, face count, detection status
+- ⏩ **Frame Skipping**: Configurable frame skipping for performance optimization
+- 🛡️ **Robust Error Handling**: Graceful degradation when models/camera unavailable
+- 🖥️ **GUI Control Panel**: Tkinter-based interface for easy control
 
 ---
 
-## ?? Demo
+## 🎬 Demo
 
 ### Real-time Mask Detection
 ```
 +-----------------------------------------+
-�         Mask Detection                  �
-�                                         �
-�    +-----+                              �
-�    � ??  �  MASK (98.5%)                �
-�    +-----+                              �
-�                                         �
-�  +-----------------+                    �
-�  � FPS: 24         �                    �
-�  � Faces: 1        �                    �
-�  � Emotion: N/A    �                    �
-�  � Mask: MASK      �                    �
-�  +-----------------+                    �
-�                                         �
+│         Mask Detection                  │
+│                                         │
+│    +-----+                              │
+│    │ 😊  │  MASK (98.5%)                │
+│    +-----+                              │
+│                                         │
+│  +-----------------+                    │
+│  │ FPS: 24         │                    │
+│  │ Faces: 1        │                    │
+│  │ Emotion: N/A    │                    │
+│  │ Mask: MASK      │                    │
+│  +-----------------+                    │
+│                                         │
 +-----------------------------------------+
 ```
 
 ### Real-time Emotion Detection
 ```
 +-----------------------------------------+
-�       Emotion Detection                 �
-�                                         �
-�    +-----+                              �
-�    � ??  �  Happy (94.2%)                �
-�    +-----+                              �
-�                                         �
-�  +-----------------+                    �
-�  � FPS: 22         �                    �
-�  � Faces: 1        �                    �
-�  � Emotion: Happy  �                    �
-�  � Mask: N/A       �                    �
-�  +-----------------+                    �
-�                                         �
+│       Emotion Detection                 │
+│                                         │
+│    +-----+                              │
+│    │ 😊  │  Happy (94.2%)                │
+│    +-----+                              │
+│                                         │
+│  +-----------------+                    │
+│  │ FPS: 22         │                    │
+│  │ Faces: 1        │                    │
+│  │ Emotion: Happy  │                    │
+│  │ Mask: N/A       │                    │
+│  +-----------------+                    │
+│                                         │
 +-----------------------------------------+
 ```
 
 ---
 
-## ?? Technologies Used
+## 💻 Technologies Used
 
 - **Python 3.10+** - Core programming language
 - **TensorFlow/Keras 2.x** - Deep learning framework for mask and emotion models
@@ -118,7 +119,7 @@
 
 ---
 
-## ?? Installation
+## 📦 Installation
 
 ### Prerequisites
 
@@ -167,7 +168,7 @@ model = YOLO("yolov8s.pt")
 
 ---
 
-## ?? Usage
+## 🚀 Usage
 
 ### Run GUI Application
 
@@ -222,66 +223,66 @@ python src/object_detection.py
 
 ---
 
-## ?? Project Structure
+## 📁 Project Structure
 
 ```
 face_ai_project/
-�
-+-- ?? assets/                    # Project assets
-�   +-- screenshots/              # Demo screenshots
-�
-+-- ?? dataset/                   # Training datasets
-�   +-- mask_dataset/            # Mask detection dataset
-�   �   +-- with_mask/
-�   �   +-- without_mask/
-�   +-- emotion_dataset/         # Emotion recognition dataset
-�       +-- angry/
-�       +-- disgust/
-�       +-- fear/
-�       +-- happy/
-�       +-- neutral/
-�       +-- sad/
-�       +-- surprise/
-�
-+-- ?? gui/                       # GUI components
-�   +-- app.py                   # Simple GUI launcher
-�   +-- interface.py             # Full-featured Tkinter interface
-�
-+-- ?? models/                    # Trained models
-�   +-- mask_model.h5           # Mask detection model
-�   +-- emotion_model.h5        # Emotion recognition model
-�
-+-- ?? src/                       # Source code
-�   +-- __init__.py             # Package initialization
-�   +-- face_detection.py       # Haar Cascade face detector
-�   +-- mask_detection.py        # Mask classification module
-�   +-- emotion_detection.py    # Emotion recognition module
-�   +-- hand_detection.py       # MediaPipe hand gesture recognition
-�   +-- object_detection.py     # YOLOv8 object detection
-�   +-- real_time_detection.py  # Enhanced unified real-time detector
-�   +-- model_loader.py         # Singleton model loader with caching
-�   +-- stats.py                # Statistics manager for GUI
-�   +-- train_mask_model.py     # Mask model training script
-�   +-- train_emotion_model.py  # Emotion model training script
-�
-+-- .gitignore                   # Git ignore rules
-+-- main.py                      # Application entry point
-+-- requirements.txt             # Python dependencies
-+-- README.md                    # Project documentation
-+-- RUNTIME_AUDIT.md            # Runtime verification report
+│
+├── 📂 assets/                    # Project assets
+│   └── screenshots/              # Demo screenshots
+│
+├── 📂 dataset/                   # Training datasets
+│   ├── mask_dataset/            # Mask detection dataset
+│   │   ├── with_mask/
+│   │   └── without_mask/
+│   └── emotion_dataset/         # Emotion recognition dataset
+│       ├── angry/
+│       ├── disgust/
+│       ├── fear/
+│       ├── happy/
+│       ├── neutral/
+│       ├── sad/
+│       └── surprise/
+│
+├── 📂 gui/                       # GUI components
+│   ├── app.py                   # Simple GUI launcher
+│   └── interface.py             # Full-featured Tkinter interface
+│
+├── 📂 models/                    # Trained models
+│   ├── mask_model.h5           # Mask detection model
+│   └── emotion_model.h5        # Emotion recognition model
+│
+├── 📂 src/                       # Source code
+│   ├── __init__.py             # Package initialization
+│   ├── face_detection.py       # Haar Cascade face detector
+│   ├── mask_detection.py        # Mask classification module
+│   ├── emotion_detection.py    # Emotion recognition module
+│   ├── hand_detection.py       # MediaPipe hand gesture recognition
+│   ├── object_detection.py     # YOLOv8 object detection
+│   ├── real_time_detection.py  # Enhanced unified real-time detector
+│   ├── model_loader.py         # Singleton model loader with caching
+│   ├── stats.py                # Statistics manager for GUI
+│   ├── train_mask_model.py     # Mask model training script
+│   └── train_emotion_model.py  # Emotion model training script
+│
+├── .gitignore                   # Git ignore rules
+├── main.py                      # Application entry point
+├── requirements.txt             # Python dependencies
+├── README.md                    # Project documentation
+└── RUNTIME_AUDIT.md            # Runtime verification report
 ```
 
 ---
 
-## ?? Training Your Own Models
+## 🎓 Training Your Own Models
 
 ### Mask Detection Model
 
 1. **Prepare Dataset**
    ```
    dataset/mask_dataset/
-   +-- with_mask/        # Place images with masks here
-   +-- without_mask/   # Place images without masks here
+   ├── with_mask/        # Place images with masks here
+   └── without_mask/   # Place images without masks here
    ```
 
 2. **Train Model**
@@ -300,13 +301,13 @@ face_ai_project/
 1. **Prepare Dataset**
    ```
    dataset/emotion_dataset/
-   +-- angry/
-   +-- disgust/
-   +-- fear/
-   +-- happy/
-   +-- neutral/
-   +-- sad/
-   +-- surprise/
+   ├── angry/
+   ├── disgust/
+   ├── fear/
+   ├── happy/
+   ├── neutral/
+   ├── sad/
+   └── surprise/
    ```
 
 2. **Train Model**
@@ -322,7 +323,7 @@ face_ai_project/
 
 ---
 
-## ?? API Reference
+## 📚 API Reference
 
 ### Model Loader (Singleton Pattern)
 
@@ -360,7 +361,7 @@ current_stats = stats.get_stats()
 
 ---
 
-## ? Performance
+## ⚡ Performance
 
 | Module | Approximate FPS | Notes |
 |--------|----------------|-------|
@@ -381,7 +382,7 @@ current_stats = stats.get_stats()
 
 ---
 
-## ?? Troubleshooting
+## 🔧 Troubleshooting
 
 ### Camera Not Available
 
@@ -426,7 +427,7 @@ pip install --upgrade tensorflow
 
 ---
 
-## ?? Future Improvements
+## 🔮 Future Improvements
 
 - [ ] Replace Haar Cascade with MTCNN or RetinaFace for better accuracy
 - [ ] Add face recognition/authentication capabilities
@@ -441,13 +442,13 @@ pip install --upgrade tensorflow
 
 ---
 
-## ?? Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m '"'"'Add some AmazingFeature'"'"'`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
@@ -455,13 +456,13 @@ Please ensure your code follows the existing style and includes appropriate test
 
 ---
 
-## ?? License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## ????? Author
+## 👤 Author
 
 **Your Name**
 - GitHub: [@yourusername](https://github.com/yourusername)
@@ -470,7 +471,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## ?? Acknowledgments
+## 🙏 Acknowledgments
 
 - [OpenCV](https://opencv.org/) for computer vision tools
 - [TensorFlow](https://tensorflow.org/) and [Keras](https://keras.io/) for deep learning
@@ -482,9 +483,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <p align="center">
-  ? Star this repository if you find it helpful!
+  ⭐ Star this repository if you find it helpful!
 </p>
 
 <p align="center">
-  Made with ?? and Python
+  Made with ❤️ and Python
 </p>
