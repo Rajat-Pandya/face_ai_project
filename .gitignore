@@ -185,3 +185,5 @@ yolov8s.pt
 runs/
 assets/screenshots/img_*.jpg
 context.md
+run_local.bat
+run_local.ps1
