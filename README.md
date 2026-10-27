@@ -18,19 +18,16 @@
 ## 📋 Table of Contents
 
 - [Features](#-features)
-- [Demo](#-demo)
-- [Technologies](#-technologies-used)
-- [Installation](#-installation)
+- [Quick Start](#-quick-start)
+- [Interpreter Configuration](#-interpreter-configuration)
+- [Models](#-models)
 - [Usage](#-usage)
 - [Project Structure](#-project-structure)
 - [Training](#-training-your-own-models)
-- [API Reference](#-api-reference)
-- [Performance](#-performance)
-- [Troubleshooting](#-troubleshooting)
-- [Future Improvements](#-future-improvements)
-- [Contributing](#-contributing)
+- [Testing](#-testing)
+- [Known Limitations & Roadmap](#-known-limitations--roadmap)
+- [Credits](#-credits)
 - [License](#-license)
-- [Author](#-author)
 
 ---
 
@@ -39,187 +36,158 @@
 | Feature | Description | Status |
 |---------|-------------|--------|
 | **Face Detection** | Real-time face detection using Haar Cascade classifier | ✅ |
-| **Mask Detection** | Binary classification: MASK / NO MASK with confidence score | ✅ |
+| **Mask Detection** | Binary classification: MASK / NO MASK with temporal confidence smoothing | ✅ |
 | **Emotion Recognition** | 7-class emotion detection (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral) | ✅ |
-| **Hand Gesture Recognition** | MediaPipe-based hand tracking with gesture recognition | ✅ |
+| **Hand Gesture Recognition** | MediaPipe-based hand tracking with gesture recognition and auto-capture | ✅ |
 | **Object Detection** | YOLOv8-powered real-time object detection (80 COCO classes) | ✅ |
-| **Modern UI** | Enhanced real-time display with FPS counter and confidence percentages | ✅ |
-| **Error Handling** | Comprehensive error handling for webcam, models, and datasets | ✅ |
+| **Control Panels** | Tkinter-based control panel launcher and HUD statistics | ✅ |
 
-### Key Features
-
-- ⚡ **Real-time Processing**: Optimized for 15-30 FPS depending on mode
-- 🎨 **Modern Visualizations**: Corner-style bounding boxes with confidence display
-- 📊 **Live Statistics**: FPS counter, face count, detection status
-- ⏩ **Frame Skipping**: Configurable frame skipping for performance optimization
-- 🛡️ **Robust Error Handling**: Graceful degradation when models/camera unavailable
-- 🖥️ **GUI Control Panel**: Tkinter-based interface for easy control
+<!--
+### Demo Screenshots
+<!-- TODO: Add actual screenshot images or demo GIF once available -->
+<!-- ![Mask Detection](assets/screenshots/mask_detection_demo.jpg) -->
+<!-- ![Emotion Detection](assets/screenshots/emotion_happy.jpg) -->
+<!-- ![GUI Control Panel](assets/screenshots/gui_main.jpg) -->
+-->
 
 ---
 
-## 🎬 Demo
+## 🚀 Quick Start
 
-### Real-time Mask Detection
-```
-+-----------------------------------------+
-│         Mask Detection                  │
-│                                         │
-│    +-----+                              │
-│    │ 😊  │  MASK (98.5%)                │
-│    +-----+                              │
-│                                         │
-│  +-----------------+                    │
-│  │ FPS: 24         │                    │
-│  │ Faces: 1        │                    │
-│  │ Emotion: N/A    │                    │
-│  │ Mask: MASK      │                    │
-│  +-----------------+                    │
-│                                         │
-+-----------------------------------------+
-```
+Dependencies are split by feature so you only install what you need for your use case:
 
-### Real-time Emotion Detection
-```
-+-----------------------------------------+
-│       Emotion Detection                 │
-│                                         │
-│    +-----+                              │
-│    │ 😊  │  Happy (94.2%)                │
-│    +-----+                              │
-│                                         │
-│  +-----------------+                    │
-│  │ FPS: 22         │                    │
-│  │ Faces: 1        │                    │
-│  │ Emotion: Happy  │                    │
-│  │ Mask: N/A       │                    │
-│  +-----------------+                    │
-│                                         │
-+-----------------------------------------+
-```
+### 1. Core Vision (Mask, Emotion, Combined Detection)
 
----
-
-## 💻 Technologies Used
-
-- **Python 3.10+** - Core programming language
-- **TensorFlow/Keras 2.x** - Deep learning framework for mask and emotion models
-- **OpenCV 4.x** - Computer vision and image processing
-- **MediaPipe** - Hand tracking and gesture recognition
-- **Ultralytics YOLOv8** - State-of-the-art object detection
-- **NumPy** - Numerical computing
-- **Tkinter** - GUI framework
-
-### Model Architectures
-
-| Model | Architecture | Input Size | Classes |
-|-------|-------------|------------|---------|
-| Mask Detection | MobileNetV2 (Transfer Learning) | 224x224 | 2 (With/Without Mask) |
-| Emotion Detection | Custom CNN | 48x48 | 7 (Emotions) |
-| Object Detection | YOLOv8s | 640x640 | 80 (COCO) |
-
----
-
-## 📦 Installation
-
-### Prerequisites
-
-- Python 3.10 or higher
-- Webcam (for real-time detection)
-- 4GB+ RAM recommended
-- CUDA-compatible GPU (optional, for faster inference)
-
-### 1. Clone the Repository
+Clone the repository and install core dependencies:
 
 ```bash
-git clone https://github.com/yourusername/face-ai-project.git
-cd face-ai-project
-```
+git clone https://github.com/Rajat-Pandya/face_ai_project.git
+cd face_ai_project
 
-### 2. Create Virtual Environment
-
-Using conda:
-```bash
-conda create -n face_ai python=3.10
-conda activate face_ai
-```
-
-Using venv:
-```bash
-python -m venv face_ai
+# Create and activate a virtual environment
+python -m venv venv
 # Windows:
-face_ai\Scripts\activate
-# Linux/Mac:
-source face_ai/bin/activate
-```
+.\venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
 
-### 3. Install Dependencies
-
-```bash
+# Install core requirements
 pip install -r requirements.txt
 ```
 
-### 4. Download YOLO Weights (Optional)
+Launch the application:
+```bash
+python main.py
+```
 
-```python
-from ultralytics import YOLO
-# This will automatically download yolov8s.pt on first run
-model = YOLO("yolov8s.pt")
+### 2. Hand Gesture Recognition (Optional)
+
+To enable MediaPipe hand tracking and gesture detection:
+
+```bash
+pip install -r requirements-hand.txt
+```
+
+Launch hand gesture mode:
+```bash
+python main.py hand
+```
+
+### 3. Object Detection with YOLOv8 (Optional)
+
+To enable YOLOv8 real-time object detection:
+
+```bash
+pip install -r requirements-yolo.txt
+```
+
+Launch object detection:
+```bash
+python main.py yolo
 ```
 
 ---
 
-## 🚀 Usage
+## ⚙️ Interpreter Configuration
 
-### Run GUI Application
+The primary launcher (`main.py`) and the control panel launcher (`gui/app.py`) spawn detection tasks as independent subprocesses.
 
-```bash
+By default, every subprocess uses the current Python interpreter (`sys.executable`).
+
+If you maintain separate virtual environments for different deep learning toolkits (e.g., to isolate MediaPipe or PyTorch from TensorFlow), you can point the launchers to specific interpreters using environment variables:
+
+| Environment Variable | Target Feature | Default |
+|----------------------|----------------|---------|
+| `FACE_AI_PYTHON` | Mask detection, emotion recognition, and GUI panel | Current Python interpreter (`sys.executable`) |
+| `HAND_AI_PYTHON` | Hand gesture tracking (`src/hand_detection.py`) | Current Python interpreter (`sys.executable`) |
+| `YOLO_AI_PYTHON` | Object detection (`src/object_detection.py`) | Current Python interpreter (`sys.executable`) |
+
+### Example: Custom Environment Setup
+
+On Windows (PowerShell):
+```powershell
+$env:FACE_AI_PYTHON = "C:\path\to\envs\face_env\Scripts\python.exe"
+$env:HAND_AI_PYTHON = "C:\path\to\envs\hand_env\Scripts\python.exe"
+$env:YOLO_AI_PYTHON = "C:\path\to\envs\yolo_env\Scripts\python.exe"
 python main.py
 ```
 
-The GUI provides:
-- **Start Detection**: Launch real-time detection windows
-- **Mode Selection**: Choose between Mask, Emotion, Hand, or Object detection
-- **Live Statistics**: Real-time face count, emotion, and mask status
-- **Model Status**: Shows which models are loaded
+On Linux/macOS:
+```bash
+export FACE_AI_PYTHON="/path/to/envs/face_env/bin/python"
+export HAND_AI_PYTHON="/path/to/envs/hand_env/bin/python"
+export YOLO_AI_PYTHON="/path/to/envs/yolo_env/bin/python"
+python main.py
+```
 
-### Command Line Usage
+---
+
+## 🧠 Models
+
+- **Pre-trained Keras Models**:
+  - `models/mask_model.h5`: MobileNetV2 transfer-learned model (224x224 RGB input) for binary mask classification. Tracked directly in this repository.
+  - `models/emotion_model.h5`: 3-block CNN (48x48 grayscale input) for 7-class emotion recognition. Tracked directly in this repository.
+- **YOLOv8 Weights**:
+  - `yolov8s.pt` is **not** tracked in this repository.
+  - When running YOLO object detection for the first time, Ultralytics automatically downloads `yolov8s.pt` into the project root directory.
+  - **License Notice**: Ultralytics YOLOv8 is released under the **AGPL-3.0 License**. Users who incorporate or distribute YOLOv8 must comply with its AGPL-3.0 licensing terms.
+
+---
+
+## 💻 Usage
+
+`main.py` is the primary application launcher.
+
+### Subprocess Launcher (CLI)
 
 ```bash
-# Run GUI (default)
+# Launch Tkinter GUI launcher panel
 python main.py
 
-# Run specific detection modes
-python main.py mask      # Mask detection
-python main.py emotion   # Emotion detection
-python main.py hand      # Hand gesture recognition
-python main.py yolo      # Object detection
+# Launch individual modes directly
+python main.py mask      # Real-time mask detection
+python main.py emotion   # Real-time emotion detection
+python main.py hand      # Hand gesture detection and auto-capture
+python main.py yolo      # YOLOv8 object detection
 ```
 
-### Run Individual Modules
+### Standalone Script Execution
+
+You can also execute each module directly:
 
 ```bash
-# Face detection only
-python src/face_detection.py
-
-# Mask detection
-python src/mask_detection.py
-
-# Emotion detection
-python src/emotion_detection.py
-
-# Hand gesture recognition
-python src/hand_detection.py
-
-# Object detection (requires yolov8s.pt)
-python src/object_detection.py
+python src/face_detection.py       # Basic Haar face detection
+python src/mask_detection.py       # Mask detection
+python src/emotion_detection.py   # Emotion detection
+python src/real_time_detection.py combined  # Combined mask + emotion HUD
+python src/hand_detection.py       # Hand tracking
+python src/object_detection.py     # YOLO detection
 ```
 
-### Keyboard Controls
+### Interactive Video Controls
 
-| Key | Action |
-|-----|--------|
-| `ESC` | Exit detection window |
-| Close Window | Stop detection |
+- **ESC key (`27`)**: Close active OpenCV stream window and exit.
+- **Window Close button**: Safely terminates the stream loop.
 
 ---
 
@@ -227,265 +195,104 @@ python src/object_detection.py
 
 ```
 face_ai_project/
-│
-├── 📂 assets/                    # Project assets
-│   └── screenshots/              # Demo screenshots
-│
-├── 📂 dataset/                   # Training datasets
-│   ├── mask_dataset/            # Mask detection dataset
-│   │   ├── with_mask/
-│   │   └── without_mask/
-│   └── emotion_dataset/         # Emotion recognition dataset
-│       ├── angry/
-│       ├── disgust/
-│       ├── fear/
-│       ├── happy/
-│       ├── neutral/
-│       ├── sad/
-│       └── surprise/
-│
-├── 📂 gui/                       # GUI components
-│   ├── app.py                   # Simple GUI launcher
-│   └── interface.py             # Full-featured Tkinter interface
-│
-├── 📂 models/                    # Trained models
-│   ├── mask_model.h5           # Mask detection model
-│   └── emotion_model.h5        # Emotion recognition model
-│
-├── 📂 src/                       # Source code
-│   ├── __init__.py             # Package initialization
-│   ├── face_detection.py       # Haar Cascade face detector
-│   ├── mask_detection.py        # Mask classification module
-│   ├── emotion_detection.py    # Emotion recognition module
-│   ├── hand_detection.py       # MediaPipe hand gesture recognition
-│   ├── object_detection.py     # YOLOv8 object detection
-│   ├── real_time_detection.py  # Enhanced unified real-time detector
-│   ├── model_loader.py         # Singleton model loader with caching
-│   ├── stats.py                # Statistics manager for GUI
-│   ├── train_mask_model.py     # Mask model training script
-│   └── train_emotion_model.py  # Emotion model training script
-│
-├── .gitignore                   # Git ignore rules
-├── main.py                      # Application entry point
-├── requirements.txt             # Python dependencies
-├── README.md                    # Project documentation
-└── RUNTIME_AUDIT.md            # Runtime verification report
+├── .github/workflows/ci.yml       # Continuous integration pipeline
+├── assets/
+│   └── screenshots/              # Auto-captured screenshots (ignored from git)
+├── dataset/
+│   └── README.md                 # Dataset folder structure documentation
+├── gui/
+│   ├── app.py                    # Multi-process control panel launcher
+│   └── interface.py              # Full experimental dashboard with HUD stats
+├── models/
+│   ├── emotion_model.h5          # Pre-trained emotion model
+│   └── mask_model.h5             # Pre-trained mask model
+├── src/
+│   ├── __init__.py               # Package initialization & interpreter config
+│   ├── camera.py                 # Cross-platform camera backend helper
+│   ├── emotion_detection.py      # Emotion classification module
+│   ├── face_detection.py         # Haar cascade face detection & cropping
+│   ├── hand_detection.py         # MediaPipe hand gesture tracker
+│   ├── mask_detection.py         # Mask detection & prediction buffer
+│   ├── model_loader.py           # Singleton lazy model loader
+│   ├── object_detection.py       # YOLOv8 object detector
+│   ├── real_time_detection.py    # Combined real-time detection pipeline
+│   ├── stats.py                  # Thread-safe telemetry statistics manager
+│   ├── train_emotion_model.py    # Emotion model training script
+│   └── train_mask_model.py       # Mask model training script
+├── tests/
+│   ├── conftest.py               # Test stubs for optional ML libraries
+│   ├── test_emotion_labels.py    # Emotion labels invariant tests
+│   ├── test_face_detection.py    # Face detection & padding boundary tests
+│   ├── test_gap002.py            # Mask input size regression tests
+│   ├── test_gesture.py           # Gesture classification tests
+│   ├── test_mask_predictor.py    # Prediction smoothing and decision rule tests
+│   └── test_stats.py             # StatsManager concurrency & contract tests
+├── main.py                       # Primary application launcher
+├── pytest.ini                    # Pytest configuration
+├── requirements.txt              # Core dependencies (OpenCV, TF, etc.)
+├── requirements-dev.txt          # Development & test dependencies
+├── requirements-hand.txt         # MediaPipe dependency
+└── requirements-yolo.txt         # Ultralytics dependency
 ```
 
 ---
 
 ## 🎓 Training Your Own Models
 
-### Mask Detection Model
+Training datasets are **not** bundled with this repository (GAP-003).
 
-1. **Prepare Dataset**
-   ```
-   dataset/mask_dataset/
-   ├── with_mask/        # Place images with masks here
-   └── without_mask/   # Place images without masks here
-   ```
-
-2. **Train Model**
+To retrain the models:
+1. Refer to [dataset/README.md](dataset/README.md) for expected folder layout and class folder names.
+2. Populate the training directories with your images.
+3. Run the training scripts:
    ```bash
    python src/train_mask_model.py
-   ```
-
-3. **Model Details**
-   - Architecture: MobileNetV2 with transfer learning
-   - Input: 224x224 RGB images
-   - Output: 2 classes (With/Without Mask)
-   - Training: 15 epochs with data augmentation
-
-### Emotion Detection Model
-
-1. **Prepare Dataset**
-   ```
-   dataset/emotion_dataset/
-   ├── angry/
-   ├── disgust/
-   ├── fear/
-   ├── happy/
-   ├── neutral/
-   ├── sad/
-   └── surprise/
-   ```
-
-2. **Train Model**
-   ```bash
    python src/train_emotion_model.py
    ```
 
-3. **Model Details**
-   - Architecture: Custom CNN (3 convolutional blocks)
-   - Input: 48x48 grayscale images
-   - Output: 7 emotion classes
-   - Training: 25 epochs with dropout regularization
+<!-- TODO: dataset names, sources and licenses -->
 
 ---
 
-## 📚 API Reference
+## 🧪 Testing
 
-### Model Loader (Singleton Pattern)
-
-```python
-from src.model_loader import get_model_loader
-
-loader = get_model_loader()
-mask_model = loader.mask_model      # Lazy loaded
-emotion_model = loader.emotion_model # Lazy loaded
-```
-
-### Real-time Detection
-
-```python
-from src.real_time_detection import run_detection
-
-# Run mask detection
-run_detection(mode="mask", camera_index=0, skip_frames=2)
-
-# Run emotion detection
-run_detection(mode="emotion", camera_index=0, skip_frames=2)
-```
-
-### Statistics Manager
-
-```python
-from src.stats import get_stats_manager
-
-stats = get_stats_manager()
-stats.update_faces(1)
-stats.update_emotion("Happy")
-stats.update_mask("MASK")
-current_stats = stats.get_stats()
-```
-
----
-
-## ⚡ Performance
-
-| Module | Approximate FPS | Notes |
-|--------|----------------|-------|
-| Face Detection | 25-30 FPS | Multi-scale Haar Cascade |
-| Mask Detection | 18-24 FPS | With frame skipping (skip_frames=2) |
-| Emotion Detection | 18-24 FPS | With frame skipping (skip_frames=2) |
-| Hand Gesture | 20-25 FPS | MediaPipe optimization |
-| Object Detection (YOLO) | 15-20 FPS | YOLOv8s model |
-
-*Performance measured on Intel i5/RTX 3060. Results may vary based on hardware.*
-
-### Optimization Techniques
-
-1. **Frame Skipping**: Process every Nth frame, reuse predictions for intermediate frames
-2. **Multi-scale Detection**: Start with downscaled image, fallback to full resolution
-3. **Prediction Buffering**: Average predictions over 3 frames for stability
-4. **Singleton Model Loading**: Models loaded once, reused throughout session
-
----
-
-## 🔧 Troubleshooting
-
-### Camera Not Available
-
-```python
-# Try different camera index
-cap = cv2.VideoCapture(1)  # Second camera
-```
-
-**Common Causes:**
-- Camera is being used by another application
-- Camera drivers not installed
-- Wrong camera index
-
-### Model Not Found
-
-```
-Error: Mask model not found at models/mask_model.h5
-```
-
-**Solutions:**
-1. Train the model: `python src/train_mask_model.py`
-2. Check models are in the `models/` directory
-3. Verify file permissions
-
-### Import Errors
+Automated test suite using pytest:
 
 ```bash
-# Ensure all dependencies are installed
-pip install -r requirements.txt
+# Install development dependencies
+pip install -r requirements-dev.txt
 
-# If TensorFlow issues:
-pip install --upgrade tensorflow
+# Run test suite
+pytest
 ```
 
-### Low FPS
-
-**Solutions:**
-- Increase `skip_frames` parameter (try 3-5)
-- Close other applications using GPU
-- Reduce camera resolution in code
-- Use CPU-only TensorFlow if GPU memory insufficient
+> **Note on Test Scope**: Continuous Integration (CI) runs on Ubuntu with Python 3.10, 3.11, and 3.12 without installing heavy GPU/ML frameworks (TensorFlow, MediaPipe, or Ultralytics). The test suite verifies pure application logic, prediction smoothing algorithms, coordinate clipping, statistics telemetry contracts, and label order invariants. Live webcam hardware capture, active neural model inference, MediaPipe hand tracking, and YOLO runtime are not covered by automated CI tests.
 
 ---
 
-## 🔮 Future Improvements
+## ⚠️ Known Limitations & Roadmap
 
-- [ ] Replace Haar Cascade with MTCNN or RetinaFace for better accuracy
-- [ ] Add face recognition/authentication capabilities
-- [ ] Implement age and gender detection
-- [ ] Multi-face tracking across frames
-- [ ] Edge device optimization (Raspberry Pi, Jetson Nano)
-- [ ] Web-based interface using Flask or Streamlit
-- [ ] Mobile app version using TensorFlow Lite
-- [ ] Add pose detection with MediaPipe
-- [ ] Docker containerization for easy deployment
-- [ ] CI/CD pipeline for automated testing
+- **Datasets Not Included (GAP-003)**: The training datasets for mask detection and emotion recognition are not distributed with this repository.
+- **Primary Launcher**: `main.py` is the primary and recommended launcher. The dashboard in `gui/interface.py` runs OpenCV display loops in background threads and is experimental (GAP-007, GAP-008).
+- **Subprocess Telemetry (GAP-009)**: Subprocesses launched from `gui/app.py` run in independent processes and do not stream telemetry back to the GUI stats panel.
+- **Combined Annotation Overwriting**: In `combined` mode in `src/real_time_detection.py`, emotion annotations may visually overlay mask annotations for the same bounding box.
+- **Haar Cascade Face Detection**: Face localization uses OpenCV Haar Cascades, which may struggle with profile angles, occlusion, or extreme lighting conditions compared to modern deep face detectors.
+- **Logging & Configuration**: System messages and runtime telemetry use stdout/stderr prints; structured file logging and external configuration files (`.env` or YAML) are planned.
+- **Accessibility**: Graphical interfaces in `gui/` currently lack screen reader metadata, scalable DPI layouts, and keyboard focus hooks.
 
 ---
 
-## 🤝 Contributing
+## 🙏 Credits
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+- **[OpenCV](https://opencv.org/)**: Real-time computer vision library and Haar Cascade classifiers.
+- **[TensorFlow / Keras](https://www.tensorflow.org/)**: Deep learning framework and MobileNetV2 ImageNet pre-trained base model weights.
+- **[MediaPipe](https://developers.google.com/mediapipe)**: Real-time hand landmark and perception pipeline.
+- **[Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)**: Object detection model architecture (licensed under AGPL-3.0).
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-Please ensure your code follows the existing style and includes appropriate tests.
+<!-- TODO: dataset names, sources and licenses -->
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👤 Author
-
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
-
----
-
-## 🙏 Acknowledgments
-
-- [OpenCV](https://opencv.org/) for computer vision tools
-- [TensorFlow](https://tensorflow.org/) and [Keras](https://keras.io/) for deep learning
-- [MediaPipe](https://mediapipe.dev/) for hand tracking
-- [Ultralytics](https://ultralytics.com/) for YOLO models
-- OpenCV Haar Cascade classifiers
-- FER-2013 dataset for emotion recognition research
-
----
-
-<p align="center">
-  ⭐ Star this repository if you find it helpful!
-</p>
-
-<p align="center">
-  Made with ❤️ and Python
-</p>
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. Note that third-party components (such as Ultralytics YOLOv8) are subject to their respective licenses (e.g., AGPL-3.0).
