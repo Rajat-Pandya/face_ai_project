@@ -15,6 +15,7 @@ from collections import deque
 import time
 from typing import Optional, Tuple, List
 from src.camera import open_camera
+from src.mask_detection import MASK_INPUT_SIZE
 from src.model_loader import get_model_loader
 from src.stats import get_stats_manager
 
@@ -30,7 +31,7 @@ class RealtimeDetector:
     Features: FPS counter, confidence display, smooth overlays, error handling
     """
     EMOTION_LABELS = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
-    IMG_SIZE = 160
+    IMG_SIZE = MASK_INPUT_SIZE
 
     # Color scheme
     COLOR_MASK = (0, 255, 0)          # Green for mask
@@ -243,7 +244,8 @@ class RealtimeDetector:
         
         # Draw background with rounded corners effect
         overlay = frame.copy()
-        cv2.rectangle(overlay, (x, y - total_h - 5), (x + total_w, y), color, -1)
+        cv2.rectangle(overlay, (x, y - total_h - 5), (x + total_w, y), color, -1)\
+        
         cv2.addWeighted(overlay, 0.9, frame, 0.1, 0, frame)
         
         # Draw label

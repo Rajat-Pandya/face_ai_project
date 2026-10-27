@@ -12,9 +12,12 @@ from tensorflow.keras.models import load_model  # type: ignore
 from src.camera import open_camera
 from src.face_detection import detect_faces
 
+MASK_INPUT_SIZE = 224
+IMG_SIZE = MASK_INPUT_SIZE
+
 
 class MaskPredictor:
-    IMG_SIZE = 224
+    IMG_SIZE = MASK_INPUT_SIZE
 
     def __init__(self, model, buffer_size=3):
         self.model = model

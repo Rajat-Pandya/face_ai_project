@@ -1,9 +1,16 @@
 import os
-import tensorflow as tf # type: ignore
-from tensorflow.keras.preprocessing.image import ImageDataGenerator # type: ignore
-from tensorflow.keras.applications import MobileNetV2 # type: ignore
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout # type: ignore
-from tensorflow.keras.models import Model # type: ignore
+import sys
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+import tensorflow as tf  # type: ignore
+from tensorflow.keras.preprocessing.image import ImageDataGenerator  # type: ignore
+from tensorflow.keras.applications import MobileNetV2  # type: ignore
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout  # type: ignore
+from tensorflow.keras.models import Model  # type: ignore
+from src.mask_detection import MASK_INPUT_SIZE
 
 
 train_dir = "dataset/mask_dataset"
@@ -20,7 +27,7 @@ datagen = ImageDataGenerator(
 train_data = datagen.flow_from_directory(
     train_dir,
     classes=['with_mask', 'without_mask'],
-    target_size=(224,224),
+    target_size=(MASK_INPUT_SIZE, MASK_INPUT_SIZE),
     batch_size=32,
     class_mode='categorical',
     subset='training'
@@ -29,7 +36,7 @@ train_data = datagen.flow_from_directory(
 val_data = datagen.flow_from_directory(
     train_dir,
     classes=['with_mask', 'without_mask'],
-    target_size=(224,224),
+    target_size=(MASK_INPUT_SIZE, MASK_INPUT_SIZE),
     batch_size=32,
     class_mode='categorical',
     subset='validation'
@@ -41,7 +48,7 @@ print("Class indices:", train_data.class_indices)
 base_model = MobileNetV2(
     weights='imagenet',
     include_top=False,
-    input_shape=(224,224,3)
+    input_shape=(MASK_INPUT_SIZE, MASK_INPUT_SIZE, 3)
 )
 
 base_model.trainable = False
