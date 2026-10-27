@@ -1,9 +1,18 @@
-import cv2 # type: ignore
-import numpy as np # type: ignore
-from tensorflow.keras.models import load_model # type: ignore
-from face_detection import detect_faces
+import os
+import sys
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+import cv2  # type: ignore
+import numpy as np  # type: ignore
+from tensorflow.keras.models import load_model  # type: ignore
+from src.camera import open_camera
+from src.face_detection import detect_faces
 
 EMOTION_LABELS = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+
 
 class EmotionPredictor:
     IMG_SIZE = 48
@@ -17,14 +26,14 @@ class EmotionPredictor:
     def preprocess(self, faceROI):
         if faceROI is None or faceROI.size == 0:
             return None
-        
+
         gray = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
-        
+
         if gray.shape[:2] != self.TARGET_SIZE:
             gray = cv2.resize(gray, self.TARGET_SIZE)
-        
+
         normalized = gray.astype(np.float32) / 255.0
-        
+
         return normalized.reshape(1, self.IMG_SIZE, self.IMG_SIZE, 1)
 
     def predict(self, faceROI):
@@ -34,11 +43,11 @@ class EmotionPredictor:
 
         try:
             pred = self.model.predict(processed, verbose=0)
-            
+
             emotion_idx = np.argmax(pred[0])
             emotion = EMOTION_LABELS[emotion_idx]
             confidence = float(np.max(pred[0])) * 100
-            
+
             return emotion, confidence
         except Exception as e:
             print(f"Prediction error: {e}")
@@ -48,11 +57,11 @@ class EmotionPredictor:
 def run_emotion_detection(camera_index=0):
     emotion_model = load_model("models/emotion_model.h5")
     predictor = EmotionPredictor(emotion_model)
-    
-    cap = cv2.VideoCapture(camera_index, cv2.CAP_DSHOW)
+
+    cap = open_camera(camera_index)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-    
+
     if not cap.isOpened():
         print("Camera not available")
         return
@@ -76,11 +85,11 @@ def run_emotion_detection(camera_index=0):
             face_roi = frame[y1:y2, x1:x2]
 
             label, confidence = predictor.predict(face_roi)
-            
+
             if label:
                 text = f"{label} ({confidence:.1f}%)"
                 color = (255, 0, 0)
-                
+
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
                 cv2.rectangle(frame, (x1, y1 - 28), (x2, y1), color, -1)
                 cv2.putText(frame, text, (x1 + 5, y1 - 8),

@@ -14,6 +14,7 @@ import numpy as np
 from collections import deque
 import time
 from typing import Optional, Tuple, List
+from src.camera import open_camera
 from src.model_loader import get_model_loader
 from src.stats import get_stats_manager
 
@@ -321,7 +322,7 @@ class RealtimeDetector:
 def check_webcam_available(camera_index=0):
     """Check if webcam is available"""
     try:
-        cap = cv2.VideoCapture(camera_index, cv2.CAP_DSHOW if os.name == "nt" else 0)
+        cap = open_camera(camera_index)
         if cap.isOpened():
             cap.release()
             return True
@@ -388,7 +389,7 @@ def run_detection(mode="mask", camera_index=0, skip_frames=2):
 
     # Initialize camera
     try:
-        cap = cv2.VideoCapture(camera_index, cv2.CAP_DSHOW if os.name == "nt" else 0)
+        cap = open_camera(camera_index)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         cap.set(cv2.CAP_PROP_FPS, 30)

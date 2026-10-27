@@ -1,6 +1,13 @@
-import cv2 # type: ignore
-import numpy as np # type: ignore
+import os
+import sys
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+import cv2  # type: ignore
+import numpy as np  # type: ignore
+from src.camera import open_camera
 
 cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
@@ -28,7 +35,7 @@ def crop_face_with_padding(frame, bbox, padding=20):
 
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cap = open_camera(0)
 
     if not cap.isOpened():
         print("Camera not available")
