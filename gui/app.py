@@ -1,30 +1,34 @@
-import tkinter as tk
+import os
 import subprocess
+import sys
+import tkinter as tk
 
-FACE_ENV_PYTHON = r"C:\Users\rajat\anaconda3\envs\final_env\python.exe"
-HAND_ENV_PYTHON = r"C:\Users\rajat\anaconda3\envs\hand_env_clean\python.exe"
-YOLO_ENV_PYTHON = r"C:\Users\rajat\anaconda3\envs\yolo_env\python.exe"
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 
-MASK_SCRIPT = r"src\mask_detection.py"
-EMOTION_SCRIPT = r"src\emotion_detection.py"
-HAND_SCRIPT = r"src\hand_detection.py"
-YOLO_SCRIPT = r"src\object_detection.py"
+from src import FACE_AI_PYTHON, HAND_AI_PYTHON, YOLO_AI_PYTHON
+
+MASK_SCRIPT = os.path.join(PROJECT_ROOT, "src", "mask_detection.py")
+EMOTION_SCRIPT = os.path.join(PROJECT_ROOT, "src", "emotion_detection.py")
+HAND_SCRIPT = os.path.join(PROJECT_ROOT, "src", "hand_detection.py")
+YOLO_SCRIPT = os.path.join(PROJECT_ROOT, "src", "object_detection.py")
 
 
 def run_mask():
-    subprocess.Popen([FACE_ENV_PYTHON, MASK_SCRIPT])
+    subprocess.Popen([FACE_AI_PYTHON, MASK_SCRIPT])
 
 
 def run_emotion():
-    subprocess.Popen([FACE_ENV_PYTHON, EMOTION_SCRIPT])
+    subprocess.Popen([FACE_AI_PYTHON, EMOTION_SCRIPT])
 
 
 def run_hand():
-    subprocess.Popen([HAND_ENV_PYTHON, HAND_SCRIPT])
+    subprocess.Popen([HAND_AI_PYTHON, HAND_SCRIPT])
 
 
 def run_yolo():
-    subprocess.Popen([YOLO_ENV_PYTHON, YOLO_SCRIPT])
+    subprocess.Popen([YOLO_AI_PYTHON, YOLO_SCRIPT])
 
 
 root = tk.Tk()
