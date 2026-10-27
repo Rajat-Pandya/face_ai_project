@@ -5,10 +5,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 os.chdir(project_root)
 
-import tkinter as tk
-from tkinter import messagebox
 import threading
-import cv2 # type: ignore
 
 
 class StatsManager:
